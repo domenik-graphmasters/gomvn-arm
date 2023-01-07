@@ -1,7 +1,7 @@
 ################################
 # STEP 1 build executable binary
 ################################
-FROM golang:1.14-alpine AS builder
+FROM arm64v8/golang:1.14-alpine AS builder
 
 RUN apk update && apk add --no-cache git make build-base
 
@@ -18,7 +18,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-w -s" -a -installsuffix cgo -o 
 ############################
 # STEP 2 build a small image
 ############################
-FROM alpine
+FROM arm64v8/alpine
 
 WORKDIR /app
 RUN apk update && apk add --no-cache sqlite
